@@ -1,4 +1,14 @@
-from rpi_ws281x import *
+"""
+Modified by Tim Shotter 02/01/23
+
+install required libs before running:
+sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel
+sudo python3 -m pip install --force-reinstall adafruit-blinka
+
+"""
+
+import board
+import neopixel
 import sys
 import time
 
@@ -17,14 +27,7 @@ else:
     print("fail")
     sys.exit(1)
 
-strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
-strip.begin()
-
-color = Color(red, green, blue)
-
-for i in range(LED_COUNT):
-    strip.setPixelColor(i, color)
-
-strip.show()
+pixels = neopixel.NeoPixel(board.LED_PIN, LED_COUNT)
+pixels.fill((red, green, blue))
 
 print("ok")
